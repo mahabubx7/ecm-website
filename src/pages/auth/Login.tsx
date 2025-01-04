@@ -12,6 +12,7 @@ import {
 import { EnvelopeClosedIcon, LockClosedIcon } from '@radix-ui/react-icons'
 import { useAuthStore } from '~/store'
 import { authService } from '~/services'
+import { useToast } from '~/components/common/Toast'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ const Login = () => {
   const login = useAuthStore((state) => state.login)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const toast = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,11 +35,12 @@ const Login = () => {
 
     try {
       const { data: response } = await authService.login(data)
-      login(response.user, response.token)
+      login(null, response.access, response.refresh)
+      toast.success('Logged in successfully!')
       const redirectTo = location.state?.from || '/'
       navigate(redirectTo, { replace: true })
     } catch (error: any) {
-      setError(error.response?.data?.message || 'Login failed')
+      toast.error(error.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
     }
@@ -56,28 +59,26 @@ const Login = () => {
               </Text>
             )}
 
-            <TextField.Root>
+            <TextField.Root 
+              name='email'
+              type='email'
+              placeholder='Email'
+              required
+            >
               <TextField.Slot>
                 <EnvelopeClosedIcon />
               </TextField.Slot>
-              <TextField.Root
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-              />
             </TextField.Root>
 
-            <TextField.Root>
+            <TextField.Root
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
+            >
               <TextField.Slot>
                 <LockClosedIcon />
               </TextField.Slot>
-              <TextField.Root
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-              />
             </TextField.Root>
 
             <Button type="submit" disabled={loading}>

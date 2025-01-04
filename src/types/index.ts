@@ -5,21 +5,24 @@ export interface Category {
   id: string
   name: string
   slug: string
-  icon: any
+  parent: string
+  created_at: string
+  updated_at: string
 }
 
 export interface Product {
   id: string
-  title: string
-  description: string
+  name: string
+  slug: string
   price: number
-  discountPercentage?: number
-  rating: number
+  description: string
+  image: string
+  is_active: boolean
   stock: number
-  brand: string
-  category: string
-  thumbnail: string
-  images: string[]
+  category: Category
+  category_id: string
+  created_at: string
+  updated_at: string
 }
 
 export interface User {
@@ -31,8 +34,24 @@ export interface User {
 }
 
 export interface ProductsResponse {
-  products: Product[]
-  total: number
-  page: number
-  limit: number
+  results: Product[]
+  next: string
+  previous: string
+  count: number
+}
+
+export interface CartResponse {
+  id: string
+  user: string
+  items: {
+    id: string
+    cart: string
+    product: Product
+    product_id: string
+    quantity: number
+    created_at: string
+    updated_at: string
+  }[]
+  created_at: string
+  updated_at: string
 }

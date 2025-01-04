@@ -13,8 +13,8 @@ const TopTrendingProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await productsService.getTrending()
-        setProducts(data.products)
+        const { data } = await productsService.getProducts()
+        setProducts(data.results)
       } catch (error) {
         console.error('Failed to fetch trending products:', error)
       }
@@ -64,20 +64,21 @@ const TopTrendingProducts = () => {
               <Link to={`/product/${product.id}`}>
                 <Card className="hover:shadow-lg transition-shadow">
                   <img
-                    src={product.thumbnail}
-                    alt={product.title}
+                    src={product.image}
+                    alt={product.name}
                     className="w-full h-48 object-cover"
                   />
                   <Flex direction="column" gap="2" p="3">
                     <Text size="2" weight="bold">
-                      {product.title}
+                      {product.name}
                     </Text>
                     <Text size="4" weight="bold">
                       {formatPrice(product.price)}
                     </Text>
-                    {product.discountPercentage && (
+                    {product.price && (
                       <Text size="2" color="red">
-                        {product.discountPercentage}% OFF
+                        {/* {product.discountPercentage}% OFF */}
+                        {10}% OFF
                       </Text>
                     )}
                   </Flex>

@@ -14,11 +14,11 @@ interface ProductsParams {
 
 export default {
   getProducts: (params?: ProductsParams) => 
-    api.get<ProductsResponse>('/products', { params }),
+    api.get<ProductsResponse>('/products/', { params }),
 
   getProduct: (id: string) => 
     api.get<Product>(`/products/${id}`),
 
   getTrending: () => 
-    api.get<ProductsResponse>('/products/trending')
+    api.get<ProductsResponse>('/products/trending/')
 } 

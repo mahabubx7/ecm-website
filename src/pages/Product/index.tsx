@@ -11,7 +11,6 @@ import {
 } from '@radix-ui/themes'
 import { 
   CardStackPlusIcon,
-  StarFilledIcon,
   MinusIcon,
   PlusIcon 
 } from '@radix-ui/react-icons'
@@ -61,15 +60,15 @@ const ProductPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Grid columns="2" gap="8">
-        <ImageGallery images={product.images} />
+        <ImageGallery images={[product.image]} />
         
         <Flex direction="column" gap="4">
-          <Heading size="8">{product.title}</Heading>
+          <Heading size="8">{product.name}</Heading>
           
-          <Flex align="center" gap="2">
+          {/* <Flex align="center" gap="2">
             <StarFilledIcon className="text-yellow-400" />
             <Text>{product.rating} Rating</Text>
-          </Flex>
+          </Flex> */}
           
           <Card className="p-4">
             <Flex direction="column" gap="4">
@@ -77,9 +76,9 @@ const ProductPage = () => {
                 {formatPrice(product.price)}
               </Text>
               
-              {product.discountPercentage && (
+              {product.price && (
                 <Text size="3" color="red">
-                  {product.discountPercentage}% OFF
+                  {10}% OFF
                 </Text>
               )}
               
@@ -136,8 +135,8 @@ const ProductPage = () => {
           
           <div className="border rounded p-4">
             <Flex direction="column" gap="2">
-              <Text size="2">Brand: {product.brand}</Text>
-              <Text size="2">Category: {product.category}</Text>
+              {/* <Text size="2">Brand: {product.category.name}</Text> */}
+              <Text size="2">Category: {product.category.name}</Text>
               <Text size="2">
                 Stock: {product.stock > 0 ? `${product.stock} units` : 'Out of stock'}
               </Text>

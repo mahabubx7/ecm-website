@@ -2,12 +2,12 @@ import api from './api'
 import { User } from '~/types'
 
 interface AuthResponse {
-  user: User
-  token: string
+  user?: User
+  access: string
+  refresh: string
 }
 
 interface RegisterRequest {
-  username: string
   email: string
   password: string
   first_name: string
@@ -16,8 +16,8 @@ interface RegisterRequest {
 
 export default {
   login: (data: { email: string; password: string }) =>
-    api.post<AuthResponse>('/auth/login', data),
+    api.post<AuthResponse>('/auth/login/', data),
 
   register: (data: RegisterRequest) =>
-    api.post<AuthResponse>('/auth/register', data)
+    api.post<AuthResponse>('/auth/register/', data)
 } 

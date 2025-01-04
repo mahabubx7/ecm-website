@@ -1,9 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Product } from '~/types'
+import type { CartResponse, Product } from '~/types'
 
 interface CartItem extends Product {
-  quantity: number
 }
 
 interface CartState {
@@ -13,6 +12,7 @@ interface CartState {
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
+  setCart: (cart: CartResponse) => void
 }
 
 export const useCartStore = create<CartState>()(
@@ -25,21 +25,21 @@ export const useCartStore = create<CartState>()(
         const existingItem = items.find(item => item.id === product.id)
 
         if (existingItem) {
-          existingItem.quantity += quantity
+          existingItem.stock += quantity
         } else {
-          items.push({ ...product, quantity })
+          items.push({ ...product, stock: quantity })
         }
 
         set({
           items,
-          total: items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+          total: items.reduce((sum, item) => sum + item.price * item.stock, 0)
         })
       },
       removeItem: (productId) => {
         const items = get().items.filter(item => item.id !== productId)
         set({
           items,
-          total: items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+          total: items.reduce((sum, item) => sum + item.price * item.stock, 0)
         })
       },
       updateQuantity: (productId, quantity) => {
@@ -48,10 +48,11 @@ export const useCartStore = create<CartState>()(
         )
         set({
           items,
-          total: items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+          total: items.reduce((sum, item) => sum + item.price * item.stock, 0)
         })
       },
       clearCart: () => set({ items: [], total: 0 }),
+      setCart: (cart) => set({ items: cart.items.map(item => item.product), total: cart.items.length }),
     }),
     { name: 'cart-storage' }
   )

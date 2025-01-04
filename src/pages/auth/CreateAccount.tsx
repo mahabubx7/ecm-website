@@ -30,14 +30,15 @@ const CreateAccount = () => {
 
     const form = e.target as HTMLFormElement
     const data = {
-      name: form.name.value,
-      email: form.email.value,
-      password: form.password.value
+      email: form.email.valueOf(),
+      password: form.password.valueOf(),
+      first_name: form.first_name.valueOf(),
+      last_name: form.last_name.valueOf(),
     }
 
     try {
       const { data: response } = await authService.register(data)
-      login(response.user, response.token)
+      login(response.user!, response.access, response.refresh)
       navigate('/')
     } catch (error: any) {
       setError(error.response?.data?.message || 'Registration failed')
@@ -63,7 +64,7 @@ const CreateAccount = () => {
               <TextField.Slot>
                 <PersonIcon />
               </TextField.Slot>
-              <TextField.Input
+              <TextField.Root
                 name="name"
                 placeholder="Full Name"
                 required
@@ -74,7 +75,7 @@ const CreateAccount = () => {
               <TextField.Slot>
                 <EnvelopeClosedIcon />
               </TextField.Slot>
-              <TextField.Input
+              <TextField.Root
                 name="email"
                 type="email"
                 placeholder="Email"
@@ -86,7 +87,7 @@ const CreateAccount = () => {
               <TextField.Slot>
                 <LockClosedIcon />
               </TextField.Slot>
-              <TextField.Input
+              <TextField.Root
                 name="password"
                 type="password"
                 placeholder="Password"
