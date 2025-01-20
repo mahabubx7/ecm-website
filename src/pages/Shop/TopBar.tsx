@@ -80,12 +80,11 @@ const TopBar = ({ viewMode, onViewModeChange }: TopBarProps) => {
         </Flex>
 
         <form onSubmit={handleSearch}>
-          <TextField.Root>
-            <TextField.Input 
-              name="search"
-              placeholder="Search products..."
-              defaultValue={searchParams.get('search') || ''}
-            />
+          <TextField.Root
+            name="search"
+            placeholder="Search products..."
+            defaultValue={searchParams.get('search') || ''}
+          >
             <TextField.Slot>
               <Button variant="ghost" type="submit">
                 <MagnifyingGlassIcon />

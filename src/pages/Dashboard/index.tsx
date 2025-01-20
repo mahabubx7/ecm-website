@@ -1,5 +1,5 @@
 import { useAuthStore } from '~/store'
-import { Card, Heading, Text, Flex, Avatar } from '@radix-ui/themes'
+import { Card, Heading, Text, Flex } from '@radix-ui/themes'
 import { formatDate } from '~/utils/format'
 
 const Dashboard = () => {
@@ -12,12 +12,12 @@ const Dashboard = () => {
       <Card>
         <Flex direction="column" gap="4" p="4">
           <Flex align="center" gap="4">
-            <Avatar 
-              src={user.avatar} 
+            {/* <Avatar 
+              src={user.} 
               fallback={user.name[0]} 
               size="6" 
               radius="full"
-            />
+            /> */}
             <div>
               <Heading size="6">{user.name}</Heading>
               <Text color="gray" size="2">

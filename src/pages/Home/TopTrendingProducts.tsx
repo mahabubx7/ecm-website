@@ -70,7 +70,7 @@ const TopTrendingProducts = () => {
                   />
                   <Flex direction="column" gap="2" p="3">
                     <Text size="2" weight="bold">
-                      {product.name}
+                      {product.name.slice(0, 32)}
                     </Text>
                     <Text size="4" weight="bold">
                       {formatPrice(product.price)}

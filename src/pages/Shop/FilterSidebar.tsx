@@ -69,7 +69,7 @@ const FilterSidebar = () => {
                   onCheckedChange={() => handleCategoryChange(category.slug)}
                 />
                 <Flex align="center" gap="2" ml="2">
-                  {category.icon && <category.icon />}
+                  {/* {category.icon && <category.icon />} */}
                   {category.name}
                 </Flex>
               </div>

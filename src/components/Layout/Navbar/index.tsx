@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   Button, 
@@ -13,11 +13,27 @@ import {
 } from '@radix-ui/react-icons'
 import { useAuthStore } from '~/store'
 import SearchBox from './SearchBox'
-import { CATEGORIES } from '~/constants'
+import productService from '~/services/products'
+import { Category } from '~/types'
 
 const Navbar = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+
+  useEffect(() => {
+    async function fetchCategories() {
+      return await productService.getCategories()
+    }
+
+    fetchCategories().then((response) => {
+      console.log(response.status, response.data)
+      setCategories(response.data.results)
+    }).catch((error) => {
+      console.error(error)
+      setCategories([])
+    })
+  }, [])
 
   return (
     <header className="sticky top-0 bg-white dark:bg-gray-900 border-b z-50">
@@ -41,13 +57,13 @@ const Navbar = () => {
                   </Button>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
-                  {CATEGORIES.map(category => (
+                  {categories.map(category => (
                     <DropdownMenu.Item key={category.id}>
                       <Link 
                         to={`/shop?category=${category.slug}`}
                         className="flex items-center gap-2"
                       >
-                        {category.icon}
+                        {/* {category.icon} */}
                         {category.name}
                       </Link>
                     </DropdownMenu.Item>

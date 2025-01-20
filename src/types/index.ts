@@ -5,9 +5,9 @@ export interface Category {
   id: string
   name: string
   slug: string
-  parent: string
-  created_at: string
-  updated_at: string
+  parent: string | null
+  created_at?: string
+  updated_at?: string
 }
 
 export interface Product {
@@ -29,7 +29,10 @@ export interface User {
   id: string
   name: string
   email: string
-  avatar?: string
+  username?: string
+  // avatar?: string
+  address: string
+  phone: string
   createdAt?: string
 }
 

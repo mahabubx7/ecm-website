@@ -35,8 +35,8 @@ const ProductsList = ({ products, loading, viewMode }: ProductsListProps) => {
             <Flex gap="4">
               <Link to={`/product/${product.id}`} className="w-48">
                 <img
-                  src={product.thumbnail}
-                  alt={product.title}
+                  src={product.image}
+                  alt={product.name}
                   className="w-full h-32 object-cover"
                 />
               </Link>
@@ -44,7 +44,7 @@ const ProductsList = ({ products, loading, viewMode }: ProductsListProps) => {
               <Flex direction="column" gap="2" className="flex-1">
                 <Link to={`/product/${product.id}`}>
                   <Text weight="bold" size="5">
-                    {product.title}
+                    {product.name}
                   </Text>
                 </Link>
                 
@@ -79,22 +79,22 @@ const ProductsList = ({ products, loading, viewMode }: ProductsListProps) => {
         <Card key={product.id}>
           <Link to={`/product/${product.id}`}>
             <img
-              src={product.thumbnail}
-              alt={product.title}
+              src={product.name}
+              alt={product.name}
               className="w-full h-48 object-cover"
             />
             
             <Flex direction="column" gap="2" p="3">
-              <Text weight="bold">{product.title}</Text>
+              <Text weight="bold">{product.name}</Text>
               <Text size="5" weight="bold">
                 {formatPrice(product.price)}
               </Text>
               
-              {product.discountPercentage && (
+              {/* {product.price && (
                 <Text size="2" color="red">
                   {product.discountPercentage}% OFF
                 </Text>
-              )}
+              )} */}
             </Flex>
           </Link>
           

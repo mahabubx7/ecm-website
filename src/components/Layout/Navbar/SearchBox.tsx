@@ -26,7 +26,7 @@ const SearchBox = () => {
           search: debouncedQuery,
           limit: 5
         })
-        setResults(data.products)
+        setResults(data.results)
       } catch (error) {
         console.error('Search failed:', error)
       }
@@ -74,11 +74,11 @@ const SearchBox = () => {
               >
                 <Flex align="center" gap="2">
                   <img
-                    src={product.thumbnail}
-                    alt={product.title}
+                    src={product.image}
+                    alt={product.name}
                     className="w-10 h-10 object-cover"
                   />
-                  <Text size="2">{product.title}</Text>
+                  <Text size="2">{product.name}</Text>
                 </Flex>
               </Button>
             ))}

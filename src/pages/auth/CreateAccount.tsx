@@ -12,7 +12,6 @@ import {
 import { 
   EnvelopeClosedIcon, 
   LockClosedIcon,
-  PersonIcon 
 } from '@radix-ui/react-icons'
 import { useAuthStore } from '~/store'
 import { authService } from '~/services'
@@ -30,18 +29,20 @@ const CreateAccount = () => {
 
     const form = e.target as HTMLFormElement
     const data = {
-      email: form.email.valueOf(),
-      password: form.password.valueOf(),
-      first_name: form.first_name.valueOf(),
-      last_name: form.last_name.valueOf(),
+      email: form.email.value,
+      password: form.password.value
     }
 
     try {
-      const { data: response } = await authService.register(data)
-      login(response.user!, response.access, response.refresh)
-      navigate('/')
+      const response = await authService.register(data)
+      console.log(response)
+      login(response.data.user!, response.data.access, response.data.refresh)
+      navigate('/', { replace: true })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.response?.data?.message || 'Registration failed')
+      console.log("ERROR: ", error)
+      setLoading(false)
     } finally {
       setLoading(false)
     }
@@ -60,40 +61,27 @@ const CreateAccount = () => {
               </Text>
             )}
 
-            <TextField.Root>
-              <TextField.Slot>
-                <PersonIcon />
-              </TextField.Slot>
-              <TextField.Root
-                name="name"
-                placeholder="Full Name"
-                required
-              />
-            </TextField.Root>
-
-            <TextField.Root>
+            <TextField.Root
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+            >
               <TextField.Slot>
                 <EnvelopeClosedIcon />
               </TextField.Slot>
-              <TextField.Root
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-              />
             </TextField.Root>
 
-            <TextField.Root>
+            <TextField.Root
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
+              minLength={6}
+            >
               <TextField.Slot>
                 <LockClosedIcon />
               </TextField.Slot>
-              <TextField.Root
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-                minLength={6}
-              />
             </TextField.Root>
 
             <Button type="submit" disabled={loading}>

@@ -1,11 +1,11 @@
-import { 
-  HomeIcon,
-//   PersonIcon,
-  BackpackIcon,
-  MobileIcon,
-  HeartIcon,
+// import { 
+//   HomeIcon,
+// //   PersonIcon,
+//   BackpackIcon,
+//   MobileIcon,
+//   HeartIcon,
 
-} from '@radix-ui/react-icons'
+// } from '@radix-ui/react-icons'
 import type { Category } from '~/types'
 
 export const CATEGORIES: Category[] = [
@@ -13,31 +13,36 @@ export const CATEGORIES: Category[] = [
     id: '1',
     name: 'Electronics',
     slug: 'electronics',
-    icon: MobileIcon
+    parent: null,
+    // icon: MobileIcon
   },
   {
     id: '2',
     name: 'Mobile Phones',
     slug: 'mobile-phones',
-    icon: MobileIcon
+    parent: null,
+    // icon: MobileIcon
   },
   {
     id: '3',
     name: 'Accessories',
     slug: 'accessories',
-    icon: HeartIcon
+    parent: null,
+    // icon: HeartIcon
   },
   {
     id: '4',
     name: 'Fashion',
     slug: 'fashion',
-    icon: BackpackIcon
+    parent: null,
+    // icon: BackpackIcon
   },
   {
     id: '5',
     name: 'Home & Living',
     slug: 'home-living',
-    icon: HomeIcon
+    parent: null,
+    // icon: HomeIcon
   }
 ]
 

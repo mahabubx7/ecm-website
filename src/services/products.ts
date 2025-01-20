@@ -1,5 +1,5 @@
 import api from './api'
-import { Product, ProductsResponse } from '~/types'
+import { Category, Product, ProductsResponse } from '~/types'
 
 interface ProductsParams {
   category?: string | null
@@ -12,6 +12,13 @@ interface ProductsParams {
   limit?: number
 }
 
+interface PaginatedResponse<T> {
+  count: number
+  next: string | null | number
+  previous: string | null | number
+  results: T[]
+}
+
 export default {
   getProducts: (params?: ProductsParams) => 
     api.get<ProductsResponse>('/products/', { params }),
@@ -20,5 +27,8 @@ export default {
     api.get<Product>(`/products/${id}`),
 
   getTrending: () => 
-    api.get<ProductsResponse>('/products/trending/')
+    api.get<ProductsResponse>('/products/trending/'),
+
+  getCategories: () =>
+    api.get<PaginatedResponse<Category>>('/products/categories/'),
 } 

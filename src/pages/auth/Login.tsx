@@ -39,6 +39,7 @@ const Login = () => {
       toast.success('Logged in successfully!')
       const redirectTo = location.state?.from || '/'
       navigate(redirectTo, { replace: true })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed')
     } finally {

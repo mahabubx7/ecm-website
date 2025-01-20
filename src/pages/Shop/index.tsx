@@ -28,7 +28,7 @@ const Shop = () => {
         }
 
         const { data } = await productsService.getProducts(params)
-        setProducts(data.products)
+        setProducts(data.results)
       } catch (error) {
         console.error('Failed to fetch products:', error)
       } finally {
